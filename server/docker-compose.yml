@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  pg:
+    image: bitnami/postgresql:latest
+    container_name: pg
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=brevly
+    volumes:
+      - ./docker:/docker-entrypoint-initdb.d
+      - pgdata:/bitnami/postgresql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: brevly-app
+    ports:
+      - "3333:3333" # ou qualquer porta da sua API
+    depends_on:
+      - pg
+    environment:
+      DATABASE_URL: postgres://docker:docker@pg:5432/brevly
+      PORT: 3333
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  pgdata:
