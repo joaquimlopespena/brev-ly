@@ -19,18 +19,20 @@ export default function CardList() {
             <div className="flex flex-col items-center justify-center w-full">
                 {hasLinks ? (
                     <ScrollArea.Root className="w-full">
-                        <ScrollArea.Viewport className="h-[220px] w-auto">
-                        {links.map((item) => (
+                        <ScrollArea.Viewport className="h-[220px] w-full">
+                            <div className="flex flex-col">
+                                {links.map((item) => (
                                     <List key={item.id} id={item.id} shortLink={item.link} longLink={item.url} accessCount={item.accessCount} />
                                 ))}
+                            </div>
                         </ScrollArea.Viewport>
                         <ScrollArea.Scrollbar 
                             orientation="vertical" 
-                            className="flex w-2.5 touch-none select-none bg-gray-100 rounded-full p-0.5"
+                            className="!flex !w-2 !touch-none !select-none !bg-gray-100 !rounded-full !p-0.5 hover:!bg-gray-200 !transition-colors !duration-200"
                         >
-                            <ScrollArea.Thumb className="flex-1 bg-gray-400 rounded-full relative" />
+                            <ScrollArea.Thumb className="!flex-1 !bg-gray-300 !rounded-full hover:!bg-gray-400 !transition-colors !duration-200" />
                         </ScrollArea.Scrollbar>
-                        <ScrollArea.Corner className="bg-gray-100" />
+                        <ScrollArea.Corner className="!bg-gray-100" />
                     </ScrollArea.Root>
                     
                 ) : (
