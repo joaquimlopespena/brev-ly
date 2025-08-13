@@ -4,7 +4,7 @@ import subtract from '../assets/subtract.png'
 export default function Redirect() {
     return (
         <Main align="center">
-            <div className="flex flex-col bg-white w-full mt-28  md:mt-44 max-w-1/2 h-auto rounded-lg p-8 shadow-lg justify-center items-center">
+            <div className="flex flex-col bg-white w-full mt-28  md:mt-44 md:max-w-1/2 h-auto rounded-lg p-8 shadow-lg justify-center items-center">
                 <img src={subtract} alt="Subtract" className="w-9 h-9 mb-8" />
             
                 <h1 className="text-2xl font-bold mb-8">Redirecionando...</h1>
