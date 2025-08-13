@@ -1,5 +1,5 @@
 import { DownloadIcon, Link } from "lucide-react";
-import List from "../components/List";
+import List from "./List";
 import * as ScrollArea from "@radix-ui/react-scroll-area";
 import ListLink from "../utils/ListLink";
 
@@ -19,7 +19,7 @@ export default function CardList() {
             <div className="flex flex-col items-center justify-center w-full">
                 {hasLinks ? (
                     <ScrollArea.Root className="w-full">
-                        <ScrollArea.Viewport className="h-[220px] w-full">
+                        <ScrollArea.Viewport className="h-[300px] w-full">
                             <div className="flex flex-col">
                                 {links.map((item) => (
                                     <List key={item.id} id={item.id} shortLink={item.link} longLink={item.url} accessCount={item.accessCount} />

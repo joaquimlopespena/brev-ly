@@ -1,18 +1,15 @@
-import Main from './components/Main'
 import Content from './components/Content'
 import Logo from './components/Logo'
-import CardForm from './pages/CardForm'
-import CardList from './pages/CardList'
+//import Index from './pages/Index'
+import Redirect from './pages/Redirect'
 
 function App() {
     return (
         <>
             <Content>
-                <Logo />
-                <Main>
-                    <CardForm />
-                    <CardList />
-                </Main>
+                {/* <Logo /> */}
+                {/* <Index /> */}
+                <Redirect />
             </Content>
         </>
     )
