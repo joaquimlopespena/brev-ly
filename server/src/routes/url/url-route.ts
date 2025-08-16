@@ -176,7 +176,7 @@ export const updateUrl: FastifyPluginAsyncZod = async (app: FastifyInstance) => 
 }
 
 export const deleteUrl: FastifyPluginAsyncZod = async (app: FastifyInstance) => {
-    app.delete("/url/delet/:id", {
+    app.delete("/url/delete/:id", {
         schema: {
             summary: "Delet a url",
             description: "Delet a url",

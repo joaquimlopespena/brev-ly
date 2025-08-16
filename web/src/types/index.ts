@@ -2,16 +2,15 @@
 
 export interface Link {
   id: string;
-  originalUrl: string;
-  shortUrl: string;
-  createdAt: Date;
-  accessCount: number;
-  isActive: boolean;
+  name: string;
+  url: string;
+  createdAt: string;
+  count_access: number;
 }
 
 export interface CreateLinkRequest {
-  originalUrl: string;
-  customShortUrl?: string;
+  name: string;
+  url: string;
 }
 
 export interface CreateLinkResponse {

@@ -175,7 +175,7 @@ describe('URL Routes Integration', () => {
         })
     })
 
-    describe('DELETE /url/delet/:id', () => {
+    describe('DELETE /url/delete/:id', () => {
         it('should delete URL successfully', async () => {
             // Arrange
             const validData = {
@@ -189,7 +189,7 @@ describe('URL Routes Integration', () => {
             // Act
             const response = await app.inject({
                 method: 'DELETE',
-                url: '/url/delet/1'
+                url: '/url/delete/1'
             })
 
             // Assert
@@ -211,7 +211,7 @@ describe('URL Routes Integration', () => {
             // Act
             const response = await app.inject({
                 method: 'DELETE',
-                url: '/url/delet/invalid-id'
+                url: '/url/delete/invalid-id'
             })
 
             console.log(response.payload, response.statusCode);

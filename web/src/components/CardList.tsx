@@ -1,13 +1,34 @@
-import { DownloadIcon, Link } from "lucide-react";
+import { DownloadIcon, Link as LinkIcon } from "lucide-react";
 import List from "./List";
 import * as ScrollArea from "@radix-ui/react-scroll-area";
-import ListLink from "../utils/ListLink";
+import { ApiService } from "../services/api";
+import { useEffect, useState } from "react";
+import type { Link } from "../types";
 
 export default function CardList() {
-    const hasLinks = true;
+    const [links, setLinks] = useState<Link[]>([]);
+    const hasLinks = links.length > 0;
 
-    const links = ListLink()
-    console.log(links)
+    useEffect(() => {
+        const fetchLinks = async () => {
+            try {
+                const response = await ApiService.getLinks();
+                
+                if (response.data && Array.isArray(response.data) && response.data.length > 0) {
+                    setLinks(response.data);
+                } else {
+                    console.log('Response completa:', response);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+                
+            console.log(links);
+        };
+        
+        fetchLinks();
+    }, []);
+    
     return (
         <div className="flex flex-col items-center justify-center bg-white w-full max-w-md h-auto rounded-lg p-4 md:p-8 shadow-lg">
             <div className="flex flex-row items-center justify-between w-full mb-6 border-b border-gray-200 pb-4">
@@ -22,7 +43,7 @@ export default function CardList() {
                         <ScrollArea.Viewport className="h-[300px] w-full">
                             <div className="flex flex-col">
                                 {links.map((item) => (
-                                    <List key={item.id} id={item.id} shortLink={item.link} longLink={item.url} accessCount={item.accessCount} />
+                                    <List key={item.id} id={item.id} shortLink={item.name} longLink={item.url} accessCount={item.count_access} />
                                 ))}
                             </div>
                         </ScrollArea.Viewport>
@@ -37,7 +58,7 @@ export default function CardList() {
                     
                 ) : (
                     <div className="flex flex-col items-center justify-center">
-                        <Link className="w-10 h-10 mb-4 text-gray-500" />
+                        <LinkIcon className="w-10 h-10 mb-4 text-gray-500" />
                         <p className="text-sm text-gray-500">
                             Ainda não existem links cadastrados
                         </p>

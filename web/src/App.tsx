@@ -1,11 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 import Content from './components/Content'
-import Logo from './components/Logo'
 import Index from './pages/Index'
 import NotFound from './pages/NotFound'
 import Redirect from './pages/Redirect'
-//import Redirect from './pages/Redirect'
-//import NotFound from './pages/NotFound'
 
 function App() {
     return (
