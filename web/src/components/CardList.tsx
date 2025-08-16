@@ -8,10 +8,16 @@ import Button from "./Button";
 
 export default function CardList() {
     const [links, setLinks] = useState<Link[]>([]);
+    const [refreshKey, setRefreshKey] = useState(0);
     const hasLinks = links.length > 0;
 
     const handleDelete = (id: string) => {
         setLinks(prevLinks => prevLinks.filter(link => link.id !== id));
+    };
+
+    // Função para forçar atualização da lista
+    const refreshLinks = () => {
+        setRefreshKey(prev => prev + 1);
     };
 
     const handleDownloadCSV = async () => {
@@ -49,10 +55,10 @@ export default function CardList() {
         };
         
         fetchLinks();
-    }, []);
+    }, [refreshKey]); // Adicionar refreshKey como dependência
     
     return (
-        <div className="flex flex-col items-center justify-center bg-white w-full max-w-md h-auto rounded-lg p-4 md:p-8 shadow-lg">
+        <div className="flex flex-col items-center justify-center bg-white w-full md:w-1/2 h-auto rounded-lg p-4 md:p-8 shadow-lg">
             <div className="flex flex-row items-center justify-between w-full mb-6 border-b border-gray-200 pb-4">
                 <h1 className="text-2xl font-bold">Meus links</h1>
                 <Button variant="secondary" size="md" onClick={handleDownloadCSV} >

@@ -1,14 +1,13 @@
 type MainProps = {
     children: React.ReactNode
-    align?: 'start' | 'center' | 'end'
 }
 
-export default function Main({ children, align = 'start' }: MainProps) {
+export default function Main({ children }: MainProps) {
     return (
-        <div
-            className={`flex flex-col md:flex-row items-${align} justify-center bg-dark-gray w-full h-auto min-h-24 p-4 md:space-x-8 space-y-4`}
-        >
-            {children}
+        <div className="flex justify-center w-full h-auto min-h-24 p-4">
+            <div className="flex flex-col md:flex-row items-start justify-center space-y-6 md:space-y-0 md:space-x-8 w-full max-w-6xl">
+                {children}
+            </div>
         </div>
     )
 }

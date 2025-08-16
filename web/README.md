@@ -5,20 +5,20 @@ Uma aplicação web moderna para encurtamento de URLs, desenvolvida com React, T
 ## ✨ Funcionalidades
 
 ### 🎯 Funcionalidades Principais
-- [ ] **Criação de Links**: Crie links encurtados personalizados ou automáticos
-  - [ ] Não deve ser possível criar um link com encurtamento mal formatado
-  - [ ] Não deve ser possível criar um link com encurtamento já existente
-- [ ] **Deletar Links**: Delete links conforme necessário
-- [ ] **Redirecionamento**: Acesso direto às URLs originais via encurtamento
-- [ ] **Listagem Completa**: Visualize todas as URLs cadastradas
-- [ ] **Estatísticas**: Incremente a quantidade de acessos de um link
-- [ ] **Relatórios**: Baixe um CSV com o relatório dos links criados
+- [x] **Criação de Links**: Crie links encurtados personalizados ou automáticos
+  - [x] Não deve ser possível criar um link com encurtamento mal formatado
+  - [x] Não deve ser possível criar um link com encurtamento já existente
+- [x] **Deletar Links**: Delete links conforme necessário
+- [x] **Redirecionamento**: Acesso direto às URLs originais via encurtamento
+- [x] **Listagem Completa**: Visualize todas as URLs cadastradas
+- [x] **Estatísticas**: Incremente a quantidade de acessos de um link
+- [x] **Relatórios**: Baixe um CSV com o relatório dos links criados
 
 ### 🎨 Experiência do Usuário
-- [ ] **Interface Responsiva**: Otimizada para desktop e dispositivos móveis
-- [ ] **Estados Visuais**: Empty states, loaders e feedback visual
-- [ ] **Validação em Tempo Real**: Feedback imediato sobre erros e sucessos
-- [ ] **Design Moderno**: Interface limpa e intuitiva seguindo o layout do Figma
+- [x] **Interface Responsiva**: Otimizada para desktop e dispositivos móveis
+- [x] **Estados Visuais**: Empty states, loaders e feedback visual
+- [x] **Validação em Tempo Real**: Feedback imediato sobre erros e sucessos
+- [x] **Design Moderno**: Interface limpa e intuitiva seguindo o layout do Figma
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -77,32 +77,32 @@ npm run lint
 
 ## 📱 Funcionalidades da Aplicação
 
-### ⏳ Criação de Links
-- [ ] Validação de formato de URL
-- [ ] Verificação de duplicatas
-- [ ] Encurtamento personalizado ou automático
+### ✅ Criação de Links
+- [x] Validação de formato de URL
+- [x] Verificação de duplicatas
+- [x] Encurtamento personalizado ou automático
 
-### ⏳ Gerenciamento
-- [ ] Listagem de todos os links
-- [ ] Exclusão de links
-- [ ] Visualização de estatísticas
+### ✅ Gerenciamento
+- [x] Listagem de todos os links
+- [x] Exclusão de links
+- [x] Visualização de estatísticas
 
-### ⏳ Acesso aos Links
-- [ ] Redirecionamento automático
-- [ ] Contagem de acessos
-- [ ] Histórico de uso
+### ✅ Acesso aos Links
+- [x] Redirecionamento automático
+- [x] Contagem de acessos
+- [x] Histórico de uso
 
-### ⏳ Relatórios
-- [ ] Exportação em CSV
-- [ ] Dados completos dos links
-- [ ] Estatísticas de performance
+### ✅ Relatórios
+- [x] Exportação em CSV
+- [x] Dados completos dos links
+- [x] Estatísticas de performance
 
 ## 🎨 Design e UX
 
-- [ ] **Responsividade**: Layout adaptável para todos os dispositivos
-- [ ] **Estados Visuais**: Feedback claro para todas as ações
-- [ ] **Acessibilidade**: Navegação por teclado e leitores de tela
-- [ ] **Performance**: Carregamento rápido e transições suaves
+- [x] **Responsividade**: Layout adaptável para todos os dispositivos
+- [x] **Estados Visuais**: Feedback claro para todas as ações
+- [x] **Acessibilidade**: Navegação por teclado e leitores de tela
+- [x] **Performance**: Carregamento rápido e transições suaves
 
 ## 📁 Estrutura do Projeto
 

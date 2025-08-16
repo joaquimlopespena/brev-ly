@@ -3,7 +3,7 @@ import notFound from '../assets/404.svg'
 
 export default function NotFound() {
     return (
-        <Main align="center">
+        <Main>
             <div className="flex flex-col bg-white w-full mt-28  md:mt-44 md:max-w-1/2 h-auto rounded-lg p-8 shadow-lg justify-center items-center">
                 <img src={notFound} alt="Subtract" className="w-50 h-30 mb-4" />
                 <h1 className="text-2xl font-bold mb-8 text-center">Link não encontrado</h1>
