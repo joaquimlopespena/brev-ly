@@ -9,37 +9,18 @@ export class ApiService {
     ): Promise<ApiResponse<T>> {
         try {
             const fullUrl = `${API_BASE_URL}${endpoint}`;
-            console.log('🔍 DEBUG INFO:');
-            console.log('  - API_BASE_URL:', API_BASE_URL);
-            console.log('  - endpoint:', endpoint);
-            console.log('  - fullUrl:', fullUrl);
-            console.log('  - window.location.origin:', window.location.origin);
-            console.log('🌐 Making request to:', fullUrl);
-            console.log('🔧 Request options:', { method: options.method, headers: options.headers });
-            
+
             const finalHeaders = {
                 'Content-Type': 'application/json',
                 ...options.headers,
             };
             
-            console.log('🔧 Final headers:', finalHeaders);
-            console.log('🔧 Request method:', options.method);
-            console.log('🔧 Request body:', options.body);
-            
             const response = await fetch(fullUrl, {
                 headers: finalHeaders,
                 ...options,
             });
-
-            console.log('📡 Response status:', response.status);
-            console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()));
-            
-            if (!response.ok) {
-                console.error('❌ HTTP Error:', response.status, response.statusText);
-            }
             
             const data = await response.json();
-            console.log('📦 API Response:', data);
             
             // Retorna a resposta da API mesmo em caso de erro HTTP
             return data;
