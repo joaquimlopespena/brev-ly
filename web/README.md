@@ -49,7 +49,7 @@ Uma aplicação web moderna para encurtamento de URLs, desenvolvida com React, T
 3. **Configure as variáveis de ambiente**
    ```bash
    # Crie um arquivo .env na raiz do projeto
-   VITE_API_URL=http://localhost:3000
+   VITE_BACKEND_URL=http://localhost:3000
    ```
 
 ## 🚀 Como Executar

@@ -1,6 +1,6 @@
 import type { CreateLinkRequest, Link, ApiResponse, ExportCSVResponse } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || '/api';
 
 export class ApiService {
     private static async request<T>(
