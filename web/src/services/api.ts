@@ -1,4 +1,4 @@
-import type { CreateLinkRequest, CreateLinkResponse, Link, ApiResponse } from '../types';
+import type { CreateLinkRequest, Link, ApiResponse, ExportCSVResponse } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:3333';
 
@@ -40,8 +40,16 @@ export class ApiService {
         return this.request<Link[]>('/url');
     }
 
-    static async getLink(id: string): Promise<ApiResponse<Link>> {
-        return this.request<Link>(`/url/${id}`);
+    static async downloadCSV(): Promise<ExportCSVResponse> {
+        const response = await this.request<ExportCSVResponse>(`/url/export`, {
+            method: 'POST',
+            body: JSON.stringify({})
+        });
+        return response as ExportCSVResponse;
+    }
+    static async getLink(name: string): Promise<Link> {
+        const response = await this.request<Link>(`/${name}`);
+        return response as unknown as Link;
     }
 
     static async deleteLink(id: string): Promise<ApiResponse<void>> {

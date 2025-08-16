@@ -10,7 +10,7 @@ export default function NotFound() {
                 <div className="flex flex-col">
                     <p className="text-sm text-gray-500 mb-2 text-center">
                         O link que você está tentando acessar não existe, foi removido ou é <br />
-                        uma URL inválida. Saiba mais em <a href="#" className="text-blue-600 underline hover:text-blue-800">brev.ly</a>
+                        uma URL inválida. Saiba mais em <a href={`/`} className="text-blue-600 underline hover:text-blue-800">brev.ly</a>
                     </p>
                 </div>
             </div>

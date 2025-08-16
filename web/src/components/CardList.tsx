@@ -4,10 +4,28 @@ import * as ScrollArea from "@radix-ui/react-scroll-area";
 import { ApiService } from "../services/api";
 import { useEffect, useState } from "react";
 import type { Link } from "../types";
+import Button from "./Button";
 
 export default function CardList() {
     const [links, setLinks] = useState<Link[]>([]);
     const hasLinks = links.length > 0;
+
+    const handleDownloadCSV = async () => {
+        try {
+            const response = await ApiService.downloadCSV();
+            console.log(response);
+            
+            if (response.url) {
+                // Abre o link de download em uma nova aba
+                window.open(response.url, '_blank');
+            } else {
+                console.error('Erro ao exportar CSV:', response.error || response.message);
+                // Aqui você pode adicionar uma notificação de erro para o usuário
+            }
+        } catch (error) {
+            console.error('Erro ao exportar CSV:', error);
+        }
+    }
 
     useEffect(() => {
         const fetchLinks = async () => {
@@ -33,9 +51,10 @@ export default function CardList() {
         <div className="flex flex-col items-center justify-center bg-white w-full max-w-md h-auto rounded-lg p-4 md:p-8 shadow-lg">
             <div className="flex flex-row items-center justify-between w-full mb-6 border-b border-gray-200 pb-4">
                 <h1 className="text-2xl font-bold">Meus links</h1>
-                <button className="bg-gray-200 text-gray-500 p-2 h-10 rounded-lg text-sm hover:bg-gray-300 transition-all duration-300 flex items-center gap-2">
-                    <DownloadIcon className="w-4 h-4" /> Baixar CSV
-                </button>
+                <Button variant="secondary" size="md" onClick={handleDownloadCSV} >
+                    <DownloadIcon className="w-4 h-4 mr-2" />
+                    Baixar CSV
+                </Button>
             </div>
             <div className="flex flex-col items-center justify-center w-full">
                 {hasLinks ? (

@@ -13,6 +13,12 @@ export interface CreateLinkRequest {
   url: string;
 }
 
+export interface ExportCSVResponse {
+  message: string;
+  url?: string;
+  error?: string;
+}
+
 export interface CreateLinkResponse {
   success: boolean;
   data?: Link;
