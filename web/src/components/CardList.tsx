@@ -10,6 +10,10 @@ export default function CardList() {
     const [links, setLinks] = useState<Link[]>([]);
     const hasLinks = links.length > 0;
 
+    const handleDelete = (id: string) => {
+        setLinks(prevLinks => prevLinks.filter(link => link.id !== id));
+    };
+
     const handleDownloadCSV = async () => {
         try {
             const response = await ApiService.downloadCSV();
@@ -62,7 +66,14 @@ export default function CardList() {
                         <ScrollArea.Viewport className="h-[300px] w-full">
                             <div className="flex flex-col">
                                 {links.map((item) => (
-                                    <List key={item.id} id={item.id} shortLink={item.name} longLink={item.url} accessCount={item.count_access} />
+                                    <List 
+                                        key={item.id} 
+                                        id={item.id} 
+                                        shortLink={item.name} 
+                                        longLink={item.url} 
+                                        accessCount={item.count_access}
+                                        onDelete={handleDelete}
+                                    />
                                 ))}
                             </div>
                         </ScrollArea.Viewport>
