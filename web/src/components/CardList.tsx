@@ -20,6 +20,33 @@ export default function CardList() {
         setRefreshKey(prev => prev + 1);
     };
 
+    // Função para buscar links atualizados
+    const fetchLinks = async () => {
+        try {
+            const response = await ApiService.getLinks();
+            
+            if (response.data && Array.isArray(response.data) && response.data.length > 0) {
+                setLinks(response.data);
+            } else {
+                console.log('Response completa:', response);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    // Função para atualizar quando a página ganha foco
+    const handleVisibilityChange = () => {
+        if (!document.hidden) {
+            fetchLinks();
+        }
+    };
+
+    // Função para atualizar quando a janela ganha foco
+    const handleFocus = () => {
+        fetchLinks();
+    };
+
     const handleDownloadCSV = async () => {
         try {
             const response = await ApiService.downloadCSV();
@@ -38,33 +65,37 @@ export default function CardList() {
     }
 
     useEffect(() => {
-        const fetchLinks = async () => {
-            try {
-                const response = await ApiService.getLinks();
-                
-                if (response.data && Array.isArray(response.data) && response.data.length > 0) {
-                    setLinks(response.data);
-                } else {
-                    console.log('Response completa:', response);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-                
-            console.log(links);
-        };
-        
         fetchLinks();
     }, [refreshKey]); // Adicionar refreshKey como dependência
+
+    // Adicionar listeners para atualização automática
+    useEffect(() => {
+        // Atualiza quando a página ganha foco
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        
+        // Atualiza quando a janela ganha foco
+        window.addEventListener('focus', handleFocus);
+        
+        // Atualiza quando o usuário retorna à aba
+        window.addEventListener('pageshow', fetchLinks);
+        
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+            window.removeEventListener('focus', handleFocus);
+            window.removeEventListener('pageshow', fetchLinks);
+        };
+    }, []);
     
     return (
         <div className="flex flex-col items-center justify-center bg-white w-full md:w-1/2 h-auto rounded-lg p-4 md:p-8 shadow-lg">
             <div className="flex flex-row items-center justify-between w-full mb-6 border-b border-gray-200 pb-4">
                 <h1 className="text-2xl font-bold">Meus links</h1>
-                <Button variant="secondary" size="md" onClick={handleDownloadCSV} >
-                    <DownloadIcon className="w-4 h-4 mr-2" />
-                    Baixar CSV
-                </Button>
+                <div className="flex gap-2">
+                    <Button variant="secondary" size="md" onClick={handleDownloadCSV} >
+                        <DownloadIcon className="w-4 h-4 mr-2" />
+                        Baixar CSV
+                    </Button>
+                </div>
             </div>
             <div className="flex flex-col items-center justify-center w-full">
                 {hasLinks ? (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import Main from "../components/Main";
 import subtract from '../assets/subtract.png';
@@ -11,39 +11,76 @@ export default function Redirect() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [link, setLink] = useState<Link | null>(null);
+    const [redirecting, setRedirecting] = useState(false);
+    
+    // Refs para controlar execução única
+    const hasExecutedRef = useRef(false);
+    const redirectAttemptedRef = useRef(false);
+    const timeoutRef = useRef<number | null>(null);
 
-    useEffect(() => {
-        const fetchAndRedirect = async () => {
-            if (!shortUrl) {
-                setError("URL curta não fornecida");
-                setLoading(false);
-                return;
-            }
+    // Função de redirecionamento que só executa uma vez
+    const performRedirect = useCallback((url: string) => {
+        if (redirectAttemptedRef.current) return;
+        
+        redirectAttemptedRef.current = true;
+        console.log('🔄 Redirecionando para:', url);
+        
+        // Aqui você pode descomentar para ativar o redirecionamento automático
+        window.location.href = url;
+    }, []);
 
-            try {
-                setLoading(true);
-                const response = await ApiService.getLink(shortUrl);
-                console.log(response);
+    // Função principal que busca o link e configura o redirecionamento
+    const fetchAndSetupRedirect = useCallback(async () => {
+        if (!shortUrl || hasExecutedRef.current) {
+            return;
+        }
+
+        hasExecutedRef.current = true;
+        console.log('🔍 Buscando link:', shortUrl);
+
+        try {
+            setLoading(true);
+            const response = await ApiService.getLink(shortUrl);
+            console.log('📡 Resposta da API:', response);
+            
+            if (response.url && response.url.trim() !== '') {
+                setLink(response);
+                setRedirecting(true);
                 
-                if (response.url && response.url.trim() !== '') {
-                    setLink(response);
-                    // Aguarda um momento para mostrar a mensagem de redirecionamento
-                    setTimeout(() => {
-                        // Redireciona para a URL longa
-                        window.location.href = response.url;
-                    }, 2000);
-                } else {
-                    setError("Link não encontrado");
-                }
-            } catch (err) {
-                setError("Erro ao buscar o link");
-            } finally {
-                setLoading(false);
+                // Configura o redirecionamento automático após 2 segundos
+                timeoutRef.current = setTimeout(() => {
+                    performRedirect(response.url);
+                }, 2000);
+            } else {
+                setError("Link não encontrado");
+            }
+        } catch (err) {
+            console.error('❌ Erro ao buscar link:', err);
+            setError("Erro ao buscar o link");
+        } finally {
+            setLoading(false);
+        }
+    }, [shortUrl, performRedirect]);
+    // useEffect principal - executa apenas uma vez
+    useEffect(() => {
+        fetchAndSetupRedirect();
+
+        // Cleanup function
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
             }
         };
+    }, [fetchAndSetupRedirect]);
 
-        fetchAndRedirect();
-    }, [shortUrl]);
+    // Cleanup quando o componente é desmontado
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
     if (loading) {
         return (
